@@ -20,11 +20,12 @@ namespace PetShelter
                 Console.WriteLine("1) Add Dog");
                 Console.WriteLine("2) Add Cat");
                 Console.WriteLine("3) Add Bird");
-                Console.WriteLine("4) List Animals");
-                Console.WriteLine("5) Feed All");
-                Console.WriteLine("6) Speak All");
-                Console.WriteLine("7) Adopt (by Id)");
-                Console.WriteLine("8) Exit");
+                Console.WriteLine("4) Add Reptile");
+                Console.WriteLine("5) List Animals");
+                Console.WriteLine("6) Feed All");
+                Console.WriteLine("7) Speak All");
+                Console.WriteLine("8) Adopt (by Id)");
+                Console.WriteLine("9) Exit");
 
                 Console.Write("\nSelect an option: ");
 
@@ -50,26 +51,32 @@ namespace PetShelter
                         }
                     case "4":
                         {
-                            
-                            shelter.ListAnimals();
+
+                            shelter.AddReptile();
                             break;
                         }
                     case "5":
                         {
-                            shelter.FeedAll();
+                            
+                            shelter.ListAnimals();
                             break;
                         }
                     case "6":
                         {
-                            shelter.SpeakAll();
+                            shelter.FeedAll();
                             break;
                         }
                     case "7":
                         {
-                            shelter.Adopt();
+                            shelter.SpeakAll();
                             break;
                         }
                     case "8":
+                        {
+                            shelter.Adopt();
+                            break;
+                        }
+                    case "9":
                         {
                             running = false;
                             Console.WriteLine("Goodbye");

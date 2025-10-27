@@ -113,6 +113,38 @@ namespace PetShelter.Services
 
         }
 
+        public void AddReptile()
+        {
+            Console.Write("Enter Reptile name: ");
+            string name = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(name))
+            {
+                Console.Write("Name cannot be empty. Enter Reptile name again: ");
+                name = Console.ReadLine();
+            }
+
+            Console.Write("Enter Reptile age: ");
+            int age;
+            while (!int.TryParse(Console.ReadLine(), out age) || age < 0)
+            {
+                Console.Write("Invalid age. Enter a non-negative integer: ");
+            }
+
+            Console.Write("Is the Reptile Venomous? (y/n): ");
+            string answer = Console.ReadLine()?.Trim().ToLower() ?? "";
+            bool IsVenomous = answer == "y" || answer == "yes";
+
+            animals.Add(new Reptile
+            {
+                Id = nextId++,
+                Name = name,
+                Age = age,
+                IsVenomous = IsVenomous,
+            });
+
+            Console.WriteLine($"Reptile {name} added successfully!");
+        }
+
         public void ListAnimals()
         {
             if (animals.Count == 0)
@@ -140,6 +172,9 @@ namespace PetShelter.Services
                             break;
                         case Bird b:
                             extra = $"Wingspan: {b.WingSpanCm:0.##} cm";
+                            break;
+                        case Reptile r:
+                            extra = r.IsVenomous ? "Venomous" : "Non-Venomous";
                             break;
                     }
 
@@ -226,7 +261,6 @@ namespace PetShelter.Services
                 }
             }
         }
-
 
     }
 }
