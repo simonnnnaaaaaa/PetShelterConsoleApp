@@ -18,13 +18,15 @@ namespace PetShelter
             int nextId = 1;
             bool running = true;
 
-            while(running)
+            while (running)
             {
                 Console.WriteLine("1) Add Dog");
                 Console.WriteLine("2) Add Cat");
                 Console.WriteLine("3) Add Bird");
                 Console.WriteLine("4) List Animals");
-                Console.WriteLine("5) Exit");
+                Console.WriteLine("5) Feed All");
+                Console.WriteLine("6) Speak All");
+                Console.WriteLine("7) Exit");
 
 
                 Console.Write("\nSelect an option: ");
@@ -32,9 +34,9 @@ namespace PetShelter
                 string choice = Console.ReadLine();
                 Console.WriteLine(choice);
 
-                switch (choice) 
+                switch (choice)
                 {
-                    case "1" :
+                    case "1":
                         {
                             Console.WriteLine("Enter dog name: ");
                             string name = Console.ReadLine();
@@ -169,13 +171,60 @@ namespace PetShelter
 
                                 }
 
-                                
+
                             }
                             break;
                         }
 
-
                     case "5":
+                        {
+                            if (animals.Count == 0)
+                            {
+                                Console.WriteLine("No animals to feed.");
+                                break;
+                            }
+
+                            int fedCount = 0;
+
+                            foreach (var animal in animals)
+                            {
+                                if (animal is IFeedable feedable)
+                                {
+                                    feedable.Feed();
+                                    fedCount++;
+                                }
+                            }
+
+                            Console.WriteLine($"\nAll animals have been fed ({fedCount} total).");
+
+                            break;
+                        }
+
+                    case "6":
+                        {
+                            if (animals.Count == 0)
+                            {
+                                Console.WriteLine("No animals to speak.");
+                                break;
+                            }
+
+                            foreach (var animal in animals)
+                            {
+                                animal.Speak();
+
+                                if (animal is IFlyable flyable)
+                                    flyable.Fly();
+                            }
+
+                            break;
+                        }
+
+                    case "7":
+                        {
+                            break;
+                        }
+
+                    case "8":
                         running = false;
                         Console.WriteLine("Goodbye");
                         break;
