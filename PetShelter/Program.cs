@@ -26,7 +26,8 @@ namespace PetShelter
                 Console.WriteLine("4) List Animals");
                 Console.WriteLine("5) Feed All");
                 Console.WriteLine("6) Speak All");
-                Console.WriteLine("7) Exit");
+                Console.WriteLine("7) Adopt (by Id)");
+                Console.WriteLine("8) Exit");
 
 
                 Console.Write("\nSelect an option: ");
@@ -211,9 +212,6 @@ namespace PetShelter
                             foreach (var animal in animals)
                             {
                                 animal.Speak();
-
-                                if (animal is IFlyable flyable)
-                                    flyable.Fly();
                             }
 
                             break;
@@ -221,6 +219,37 @@ namespace PetShelter
 
                     case "7":
                         {
+                            if(animals.Count == 0)
+                            {
+                                Console.WriteLine("No animals available for adoption");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Current animals (Id | Type | Name):");
+                                foreach (var a in animals)
+                                    Console.WriteLine($"{a.Id} | {a.GetType().Name} | {a.Name}");
+                                Console.WriteLine();
+
+                                int id;
+                                Console.Write("Enter the Id to adopt: ");
+                                while (!int.TryParse(Console.ReadLine(), out id) || id < 1)
+                                {
+                                    Console.Write("Invalid Id. Enter a positive integer: ");
+                                }
+
+                                var toAdopt = animals.FirstOrDefault(a => a.Id == id);
+                               
+                                if(toAdopt == null)
+                                {
+                                    Console.WriteLine("Animal not found");
+                                }
+                                else
+                                {
+                                    animals.Remove(toAdopt);
+                                    Console.WriteLine($"Congratulations! {toAdopt.Name} (Id {toAdopt.Id}) has been adopted!");
+                                }
+                            }
+
                             break;
                         }
 
