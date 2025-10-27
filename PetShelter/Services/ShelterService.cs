@@ -262,5 +262,24 @@ namespace PetShelter.Services
             }
         }
 
+        public void FlyBirds()
+        {
+            if (animals.Count == 0)
+            {
+                Console.WriteLine("There are no birds in the shelter!");
+            }
+            else
+            {
+                foreach(var animal in animals)
+                {
+                    if(animal is IFlyable f)
+                    {
+                        f.Fly();
+                    }
+                }
+            }
+        }
+
+
     }
 }

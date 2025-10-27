@@ -25,7 +25,8 @@ namespace PetShelter
                 Console.WriteLine("6) Feed All");
                 Console.WriteLine("7) Speak All");
                 Console.WriteLine("8) Adopt (by Id)");
-                Console.WriteLine("9) Exit");
+                Console.WriteLine("9) Fly Birds");
+                Console.WriteLine("10) Exit");
 
                 Console.Write("\nSelect an option: ");
 
@@ -78,6 +79,11 @@ namespace PetShelter
                         }
                     case "9":
                         {
+                            shelter.FlyBirds();
+                            break;
+                        }
+                    case "10":
+                        {
                             running = false;
                             Console.WriteLine("Goodbye");
                             break;
@@ -89,7 +95,7 @@ namespace PetShelter
                         }
                 }
 
-                Console.WriteLine("\nPress any key to continue");
+                Console.WriteLine("\nPress ENTER to continue");
                 Console.ReadLine();
 
             }
