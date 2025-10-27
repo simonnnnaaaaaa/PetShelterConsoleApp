@@ -23,7 +23,9 @@ namespace PetShelter
                 Console.WriteLine("1) Add Dog");
                 Console.WriteLine("2) Add Cat");
                 Console.WriteLine("3) Add Bird");
-                Console.WriteLine("4) Exit");
+                Console.WriteLine("4) List Animals");
+                Console.WriteLine("5) Exit");
+
 
                 Console.Write("\nSelect an option: ");
 
@@ -134,6 +136,46 @@ namespace PetShelter
                         }
 
                     case "4":
+                        {
+                            if (animals.Count == 0)
+                            {
+                                Console.WriteLine("No animals in the shelter yet.");
+                            }
+                            else
+                            {
+
+                                Console.WriteLine("Id | Type | Name | Age | Extra | Daily Cost");
+                                Console.WriteLine("---------------------------------------------");
+
+                                foreach (var animal in animals)
+                                {
+                                    string type = animal.GetType().Name;
+                                    string extra = "";
+
+                                    switch (animal)
+                                    {
+                                        case Dog d:
+                                            extra = d.IsTrained ? "Trained" : "Untrained";
+                                            break;
+                                        case Cat c:
+                                            extra = c.IsIndoor ? "Indoor" : "Outdoor";
+                                            break;
+                                        case Bird b:
+                                            extra = $"Wingspan: {b.WingSpanCm} cm";
+                                            break;
+                                    }
+
+                                    Console.WriteLine($"{animal.Id,2} | {type,-5} | {animal.Name,-10} | {animal.Age,3} | {extra,-15} | {animal.DailyCareCost(),6:0.00}");
+
+                                }
+
+                                
+                            }
+                            break;
+                        }
+
+
+                    case "5":
                         running = false;
                         Console.WriteLine("Goodbye");
                         break;
