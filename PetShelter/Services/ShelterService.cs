@@ -280,6 +280,91 @@ namespace PetShelter.Services
             }
         }
 
+        public void SearchOrFilter()
+        {
+            Console.WriteLine("Options: ");
+            Console.WriteLine("1) By Type");
+            Console.WriteLine("2) By Name");
 
+            Console.WriteLine("Choose: ");
+            var choice = Console.ReadLine()?.Trim() ?? "";
+
+            IEnumerable<Animal> results = Enumerable.Empty<Animal>();
+
+            if (choice == "1")
+            {
+                string type = "";
+                string[] validTypes = { "dog", "cat", "bird", "reptile" };
+
+                do
+                {
+                    Console.Write("Type (Dog/Cat/Bird/Reptile): ");
+                    type = (Console.ReadLine() ?? "").Trim().ToLowerInvariant();
+
+                    if (!validTypes.Contains(type))
+                    {
+                        Console.WriteLine("Invalid type entered. Please choose one of: Dog, Cat, Bird, or Reptile.\n");
+                    }
+
+                } while (!validTypes.Contains(type));
+
+                results = animals.Where(a => a.GetType().Name.Equals(type, StringComparison.OrdinalIgnoreCase));
+
+            }
+            else if (choice == "2")
+            {
+                Console.Write("Name contains: ");
+                string term = Console.ReadLine() ?? "";
+                while (string.IsNullOrWhiteSpace(term))
+                {
+                    Console.Write("Value cannot be empty. Name contains: ");
+                    term = Console.ReadLine() ?? "";
+                }
+                term = term.Trim();
+
+                results = animals.Where(a =>
+                    a.Name?.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            else
+            {
+                Console.WriteLine("Invalid option.");
+                return;
+            }
+
+            var list = results.ToList();
+            if (list.Count == 0)
+            {
+                Console.WriteLine("No matches found.");
+                return;
+            }
+
+            Console.WriteLine("ID | Type     | Name       | Age | Extra            | Daily Cost");
+            Console.WriteLine("-----------------------------------------------------------------");
+
+            foreach (var animal in list)
+            {
+                string type = animal.GetType().Name;
+                string extra = "";
+
+                switch (animal)
+                {
+                    case Dog d:
+                        extra = d.IsTrained ? "Trained" : "Untrained";
+                        break;
+                    case Cat c:
+                        extra = c.IsIndoor ? "Indoor" : "Outdoor";
+                        break;
+                    case Bird b:
+                        extra = $"Wingspan: {b.WingSpanCm:0.##} cm";
+                        break;
+                    case Reptile r:
+                        extra = r.IsVenomous ? "Venomous" : "Non-venomous";
+                        break;
+                }
+
+                Console.WriteLine(
+                    $"{animal.Id,2} | {type,-8} | {animal.Name,-10} | {animal.Age,3} | {extra,-15} | {animal.DailyCareCost(),9:0.00}");
+            }
+        }
     }
 }

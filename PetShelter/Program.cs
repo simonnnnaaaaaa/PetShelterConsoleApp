@@ -26,7 +26,8 @@ namespace PetShelter
                 Console.WriteLine("7) Speak All");
                 Console.WriteLine("8) Adopt (by Id)");
                 Console.WriteLine("9) Fly Birds");
-                Console.WriteLine("10) Exit");
+                Console.WriteLine("10) Search/Filter");
+                Console.WriteLine("11) Exit");
 
                 Console.Write("\nSelect an option: ");
 
@@ -83,6 +84,11 @@ namespace PetShelter
                             break;
                         }
                     case "10":
+                        {
+                            shelter.SearchOrFilter();
+                            break;
+                        }
+                    case "11":
                         {
                             running = false;
                             Console.WriteLine("Goodbye");
