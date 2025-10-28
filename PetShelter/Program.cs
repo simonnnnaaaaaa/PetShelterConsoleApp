@@ -1,4 +1,5 @@
 ﻿using System;
+using PetShelter.Resources;
 using PetShelter.Services;
 
 namespace PetShelter
@@ -13,20 +14,21 @@ namespace PetShelter
 
             while (running)
             {
-                Console.WriteLine("1) Add Dog");
-                Console.WriteLine("2) Add Cat");
-                Console.WriteLine("3) Add Bird");
-                Console.WriteLine("4) Add Reptile");
-                Console.WriteLine("5) List Animals");
-                Console.WriteLine("6) Feed All");
-                Console.WriteLine("7) Speak All");
-                Console.WriteLine("8) Adopt (by Id)");
-                Console.WriteLine("9) Fly Birds");
-                Console.WriteLine("10) Search/Filter");
-                Console.WriteLine("11) Total Daily Costs");
-                Console.WriteLine("12) Exit");
+                Console.WriteLine(Messages.Option1);
+                Console.WriteLine(Messages.Option2);
+                Console.WriteLine(Messages.Option3);
+                Console.WriteLine(Messages.Option4);
+                Console.WriteLine(Messages.Option5);
+                Console.WriteLine(Messages.Option6);
+                Console.WriteLine(Messages.Option7);
+                Console.WriteLine(Messages.Option8);
+                Console.WriteLine(Messages.Option9);
+                Console.WriteLine(Messages.Option10);
+                Console.WriteLine(Messages.Option11);
+                Console.WriteLine(Messages.Option12);
+               
 
-                Console.Write("\nSelect an option: ");
+                Console.Write(Messages.SelectOption);
 
                 string choice = Console.ReadLine();
                 Console.WriteLine(choice);
@@ -93,17 +95,17 @@ namespace PetShelter
                     case "12":
                         {
                             running = false;
-                            Console.WriteLine("Goodbye");
+                            Console.WriteLine(Messages.Goodbye);
                             break;
                         }
                     default:
                         {
-                            Console.WriteLine("Invalid option, try again!");
+                            Console.WriteLine(Messages.Invlaid);
                             break;
                         }
                 }
 
-                Console.WriteLine("\nPress ENTER to continue");
+                Console.WriteLine(Messages.PressEnter);
                 Console.ReadLine();
 
             }

@@ -1,7 +1,9 @@
 ﻿using PetShelter.Interfaces;
 using PetShelter.Models;
+using PetShelter.Resources;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace PetShelter.Services
@@ -13,22 +15,22 @@ namespace PetShelter.Services
 
         public void AddDog()
         {
-            Console.WriteLine("Enter dog name: ");
+            Console.WriteLine(Messages.EnterDogName);
             string name = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(name))
             {
-                Console.WriteLine("Name can't be empty! Try again:");
+                Console.WriteLine(Messages.NameCantBeEmpty);
                 name = Console.ReadLine();
             }
 
-            Console.Write("Enter Dog age: ");
+            Console.Write(Messages.EnterDogAge);
             int age;
             while (!int.TryParse(Console.ReadLine(), out age) || age < 0)
             {
-                Console.Write("Invalid age. Enter a non-negative number: ");
+                Console.Write(Messages.InvalidAge);
             }
 
-            Console.Write("Is the Dog trained? (y/n): ");
+            Console.Write(Messages.IsTrained);
             string answer = Console.ReadLine()?.Trim().ToLower() ?? "";
             bool isTrained = answer == "y" || answer == "yes";
 
@@ -40,29 +42,30 @@ namespace PetShelter.Services
                 IsTrained = isTrained
             });
 
-            Console.WriteLine($"Dog {name} added successfully!");
+            Console.WriteLine(String.Format(Messages.DogAdded, name));
 
         }
 
         public void AddCat()
         {
-            Console.Write("Enter Cat name: ");
+            Console.Write(Messages.EnterCatName);
             string name = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(name))
             {
-                Console.Write("Name cannot be empty. Enter Cat name again: ");
+                Console.Write(Messages.NameCantBeEmpty);
                 name = Console.ReadLine();
             }
 
-            Console.Write("Enter Cat age: ");
+            Console.Write(Messages.EnterCatAge);
             int age;
             while (!int.TryParse(Console.ReadLine(), out age) || age < 0)
             {
-                Console.Write("Invalid age. Enter a non-negative integer: ");
+                Console.Write(Messages.InvalidAge);
             }
 
-            Console.Write("Is the Cat indoor? (y/n): ");
-            bool isIndoor = Console.ReadLine()?.Trim().ToLower() == "y";
+            Console.Write(Messages.IsIndoor);
+            string answer = Console.ReadLine()?.Trim().ToLower() ?? "";
+            bool isIndoor = answer == "y" || answer == "yes";
 
             animals.Add(new Cat
             {
@@ -72,31 +75,31 @@ namespace PetShelter.Services
                 IsIndoor = isIndoor
             });
 
-            Console.WriteLine($"Cat {name} added successfully!");
+            Console.WriteLine(string.Format(Messages.CatAdded, name));
         }
 
         public void AddBird()
         {
-            Console.Write("Enter Bird name: ");
+            Console.Write(Messages.EnterBirdName);
             string name = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(name))
             {
-                Console.Write("Name cannot be empty. Enter Bird name again: ");
+                Console.Write(Messages.NameCantBeEmpty);
                 name = Console.ReadLine();
             }
 
-            Console.Write("Enter Bird age: ");
+            Console.Write(Messages.EnterBirdAge);
             int age;
             while (!int.TryParse(Console.ReadLine(), out age) || age < 0)
             {
-                Console.Write("Invalid age. Enter a non-negative integer: ");
+                Console.Write(Messages.InvalidAge);
             }
 
-            Console.Write("Enter Bird wingspan (cm): ");
+            Console.Write(Messages.EnterBirdWingspan);
             double wingSpan;
             while (!double.TryParse(Console.ReadLine(), out wingSpan) || wingSpan <= 0)
             {
-                Console.Write("Invalid wingspan. Enter a positive number: ");
+                Console.Write(Messages.InvalidWingspan);
             }
 
             animals.Add(new Bird
@@ -107,28 +110,28 @@ namespace PetShelter.Services
                 WingSpanCm = wingSpan
             });
 
-            Console.WriteLine($"Bird {name} added successfully!");
+            Console.WriteLine(string.Format(Messages.BirdAdded, name));
 
         }
 
         public void AddReptile()
         {
-            Console.Write("Enter Reptile name: ");
+            Console.Write(Messages.EnterReptileName);
             string name = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(name))
             {
-                Console.Write("Name cannot be empty. Enter Reptile name again: ");
+                Console.Write(Messages.NameCantBeEmpty);
                 name = Console.ReadLine();
             }
 
-            Console.Write("Enter Reptile age: ");
+            Console.Write(Messages.EnterReptileAge);
             int age;
             while (!int.TryParse(Console.ReadLine(), out age) || age < 0)
             {
-                Console.Write("Invalid age. Enter a non-negative integer: ");
+                Console.Write(Messages.InvalidAge);
             }
 
-            Console.Write("Is the Reptile Venomous? (y/n): ");
+            Console.Write(Messages.IsVenomous);
             string answer = Console.ReadLine()?.Trim().ToLower() ?? "";
             bool IsVenomous = answer == "y" || answer == "yes";
 
@@ -140,20 +143,20 @@ namespace PetShelter.Services
                 IsVenomous = IsVenomous,
             });
 
-            Console.WriteLine($"Reptile {name} added successfully!");
+            Console.WriteLine(string.Format(Messages.ReptileAdded, name));
         }
 
         public void ListAnimals()
         {
             if (animals.Count == 0)
             {
-                Console.WriteLine("No animals in the shelter yet.");
+                Console.WriteLine(Messages.NoAnimals);
             }
             else
             {
 
-                Console.WriteLine("Id | Type | Name | Age | Extra | Daily Cost");
-                Console.WriteLine("---------------------------------------------");
+                Console.WriteLine(Messages.ListHeader);
+                Console.WriteLine(Messages.ListLine);
 
                 foreach (var animal in animals)
                 {
@@ -163,16 +166,16 @@ namespace PetShelter.Services
                     switch (animal)
                     {
                         case Dog d:
-                            extra = d.IsTrained ? "Trained" : "Untrained";
+                            extra = d.IsTrained ? Messages.Trained : Messages.Untrained;
                             break;
                         case Cat c:
-                            extra = c.IsIndoor ? "Indoor" : "Outdoor";
+                            extra = c.IsIndoor ? Messages.Indoor : Messages.Outdoor;
                             break;
                         case Bird b:
-                            extra = $"Wingspan: {b.WingSpanCm:0.##} cm";
+                            extra = string.Format(Messages.WingspanFormat, b.WingSpanCm);
                             break;
                         case Reptile r:
-                            extra = r.IsVenomous ? "Venomous" : "Non-Venomous";
+                            extra = r.IsVenomous ?Messages.Venomous : Messages.Nonvenomous;
                             break;
                     }
 
@@ -188,7 +191,7 @@ namespace PetShelter.Services
         {
             if (animals.Count == 0)
             {
-                Console.WriteLine("No animals to feed.");
+                Console.WriteLine(Messages.NoAnimals);
             }
 
             else
@@ -204,7 +207,7 @@ namespace PetShelter.Services
                     }
                 }
 
-                Console.WriteLine($"\nAll animals have been fed ({fedCount} total).");
+                Console.WriteLine(string.Format(Messages.FedAllAnimals, fedCount));
 
             }
 
@@ -214,7 +217,7 @@ namespace PetShelter.Services
         {
             if (animals.Count == 0)
             {
-                Console.WriteLine("No animals to speak.");
+                Console.WriteLine(Messages.NoAnimals);
             }
             else
             {
@@ -230,32 +233,32 @@ namespace PetShelter.Services
         {
             if (animals.Count == 0)
             {
-                Console.WriteLine("No animals available for adoption");
+                Console.WriteLine(Messages.NoAnimals);
             }
             else
             {
-                Console.WriteLine("Current animals (Id | Type | Name):");
+                Console.WriteLine(Messages.CurrentAnimals);
                 foreach (var a in animals)
                     Console.WriteLine($"{a.Id} | {a.GetType().Name} | {a.Name}");
                 Console.WriteLine();
 
                 int id;
-                Console.Write("Enter the Id to adopt: ");
+                Console.Write(Messages.EnterId);
                 while (!int.TryParse(Console.ReadLine(), out id) || id < 1)
                 {
-                    Console.Write("Invalid Id. Enter a positive integer: ");
+                    Console.Write(Messages.InvalidId);
                 }
 
                 var toAdopt = animals.FirstOrDefault(a => a.Id == id);
 
                 if (toAdopt == null)
                 {
-                    Console.WriteLine("Animal not found");
+                    Console.WriteLine(Messages.AnimalNotFound);
                 }
                 else
                 {
                     animals.Remove(toAdopt);
-                    Console.WriteLine($"Congratulations! the {toAdopt.GetType().Name} {toAdopt.Name} (Id {toAdopt.Id}) has been adopted!");
+                    Console.WriteLine(string.Format(Messages.Adopted, toAdopt.GetType().Name, toAdopt.Name, toAdopt.Id));
                 }
             }
         }
@@ -264,7 +267,7 @@ namespace PetShelter.Services
         {
             if (animals.Count == 0)
             {
-                Console.WriteLine("There are no birds in the shelter!");
+                Console.WriteLine(Messages.NoBirds);
             }
             else
             {
@@ -280,11 +283,11 @@ namespace PetShelter.Services
 
         public void SearchOrFilter()
         {
-            Console.WriteLine("Options: ");
-            Console.WriteLine("1) By Type");
-            Console.WriteLine("2) By Name");
+            Console.WriteLine(Messages.options);
+            Console.WriteLine(Messages.ByType);
+            Console.WriteLine(Messages.ByName);
 
-            Console.WriteLine("Choose: ");
+            Console.WriteLine(Messages.Choose);
             var choice = Console.ReadLine()?.Trim() ?? "";
 
             IEnumerable<Animal> results = Enumerable.Empty<Animal>();
@@ -292,16 +295,16 @@ namespace PetShelter.Services
             if (choice == "1")
             {
                 string type = "";
-                string[] validTypes = { "dog", "cat", "bird", "reptile" };
+                string[] validTypes = { Messages.Dog, Messages.Cat, Messages.Bird, Messages.Reptile };
 
                 do
                 {
-                    Console.Write("Type (Dog/Cat/Bird/Reptile): ");
+                    Console.Write(Messages.Type);
                     type = (Console.ReadLine() ?? "").Trim().ToLowerInvariant();
 
                     if (!validTypes.Contains(type))
                     {
-                        Console.WriteLine("Invalid type entered. Please choose one of: Dog, Cat, Bird, or Reptile.\n");
+                        Console.WriteLine(Messages.InvalidType);
                     }
 
                 } while (!validTypes.Contains(type));
@@ -311,11 +314,11 @@ namespace PetShelter.Services
             }
             else if (choice == "2")
             {
-                Console.Write("Name contains: ");
+                Console.Write(Messages.NameContains);
                 string term = Console.ReadLine() ?? "";
                 while (string.IsNullOrWhiteSpace(term))
                 {
-                    Console.Write("Value cannot be empty. Name contains: ");
+                    Console.Write(Messages.InvalidNameContains);
                     term = Console.ReadLine() ?? "";
                 }
                 term = term.Trim();
@@ -325,19 +328,19 @@ namespace PetShelter.Services
             }
             else
             {
-                Console.WriteLine("Invalid option.");
+                Console.WriteLine(Messages.InvalidOption);
                 return;
             }
 
             var list = results.ToList();
             if (list.Count == 0)
             {
-                Console.WriteLine("No matches found.");
+                Console.WriteLine(Messages.NoMatches);
                 return;
             }
 
-            Console.WriteLine("ID | Type     | Name       | Age | Extra            | Daily Cost");
-            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine(Messages.ListHeader);
+            Console.WriteLine(Messages.ListLine);
 
             foreach (var animal in list)
             {
@@ -347,16 +350,16 @@ namespace PetShelter.Services
                 switch (animal)
                 {
                     case Dog d:
-                        extra = d.IsTrained ? "Trained" : "Untrained";
+                        extra = d.IsTrained ? Messages.Trained: Messages.Untrained;
                         break;
                     case Cat c:
-                        extra = c.IsIndoor ? "Indoor" : "Outdoor";
+                        extra = c.IsIndoor ? Messages.Indoor : Messages.Outdoor;
                         break;
                     case Bird b:
-                        extra = $"Wingspan: {b.WingSpanCm:0.##} cm";
+                        extra = Messages.WingspanFormat;
                         break;
                     case Reptile r:
-                        extra = r.IsVenomous ? "Venomous" : "Non-venomous";
+                        extra = r.IsVenomous ? Messages.Venomous : Messages.Nonvenomous;
                         break;
                 }
 
@@ -369,12 +372,12 @@ namespace PetShelter.Services
         {
             if (animals.Count == 0)
             {
-                Console.WriteLine("There are no animals in the shelter.");
+                Console.WriteLine(Messages.NoAnimals);
             }
             else
             {
                 var totalCost = animals.Sum(a => a.DailyCareCost());
-                Console.WriteLine($"Total daily care cost for all animals: {totalCost:0.00}");
+                Console.WriteLine(string.Format(Messages.TotalCosts, totalCost));
             }
 
         }

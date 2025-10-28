@@ -1,4 +1,5 @@
 ﻿using PetShelter.Interfaces;
+using PetShelter.Resources;
 using System;
 
 namespace PetShelter.Models
@@ -8,17 +9,17 @@ namespace PetShelter.Models
         public double WingSpanCm { get; set; }
         public void Feed()
         {
-            Console.WriteLine($"The bird {Name} has been feed.");
+            Console.WriteLine(string.Format(Messages.FeedBird, this.Name));
         }
 
         public void Fly()
         {
-            Console.WriteLine($"The bird {Name} flies with a wingspan of {WingSpanCm} cm.");
+            Console.WriteLine(string.Format(Messages.BirdFlies, this.Name, this.WingSpanCm));
         }
 
         public override void Speak()
         {
-            Console.WriteLine("Chirp!");
+            Console.WriteLine(Messages.BirdSound);
         }
 
         public override decimal DailyCareCost()

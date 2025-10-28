@@ -1,4 +1,5 @@
 ﻿using PetShelter.Interfaces;
+using PetShelter.Resources;
 using System;
 
 namespace PetShelter.Models
@@ -9,12 +10,12 @@ namespace PetShelter.Models
 
         public void Feed()
         {
-            Console.WriteLine($"The dog {Name} has been feed.");
+            Console.WriteLine(string.Format(Messages.FeedDog, this.Name));
         }
 
         public override void Speak()
         {
-            Console.WriteLine("Woof!");
+            Console.WriteLine(Messages.DogSound);
         }
 
         public override decimal DailyCareCost()
