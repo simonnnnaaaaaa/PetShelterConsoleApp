@@ -1,8 +1,4 @@
-﻿using PetShelter.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using PetShelter.Interfaces;
+﻿using System;
 using PetShelter.Services;
 
 namespace PetShelter
@@ -27,7 +23,8 @@ namespace PetShelter
                 Console.WriteLine("8) Adopt (by Id)");
                 Console.WriteLine("9) Fly Birds");
                 Console.WriteLine("10) Search/Filter");
-                Console.WriteLine("11) Exit");
+                Console.WriteLine("11) Total Daily Costs");
+                Console.WriteLine("12) Exit");
 
                 Console.Write("\nSelect an option: ");
 
@@ -89,6 +86,11 @@ namespace PetShelter
                             break;
                         }
                     case "11":
+                        {
+                            shelter.TotalDailyCost();
+                            break;
+                        }
+                    case "12":
                         {
                             running = false;
                             Console.WriteLine("Goodbye");

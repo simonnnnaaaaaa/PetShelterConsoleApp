@@ -3,8 +3,6 @@ using PetShelter.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetShelter.Services
 {
@@ -270,9 +268,9 @@ namespace PetShelter.Services
             }
             else
             {
-                foreach(var animal in animals)
+                foreach (var animal in animals)
                 {
-                    if(animal is IFlyable f)
+                    if (animal is IFlyable f)
                     {
                         f.Fly();
                     }
@@ -365,6 +363,20 @@ namespace PetShelter.Services
                 Console.WriteLine(
                     $"{animal.Id,2} | {type,-8} | {animal.Name,-10} | {animal.Age,3} | {extra,-15} | {animal.DailyCareCost(),9:0.00}");
             }
+        }
+
+        public void TotalDailyCost()
+        {
+            if (animals.Count == 0)
+            {
+                Console.WriteLine("There are no animals in the shelter.");
+            }
+            else
+            {
+                var totalCost = animals.Sum(a => a.DailyCareCost());
+                Console.WriteLine($"Total daily care cost for all animals: {totalCost:0.00}");
+            }
+
         }
     }
 }
