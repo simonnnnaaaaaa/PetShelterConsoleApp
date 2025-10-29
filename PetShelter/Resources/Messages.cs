@@ -86,19 +86,25 @@ namespace PetShelter.Resources
         public const string NoMatches = "No matches found.";
 
         public const string TotalCosts = "Total daily care cost for all animals: {0:0.00}";
-   
-        public const string option1 = " 1) Add Dog";
-        public const string option2 = " 2) Add Cat";
-        public const string option3 = " 3) Add Bird";
-        public const string option4 = " 4) Add Reptile";
-        public const string option5 = " 5) List Animals";
-        public const string option6 = " 6) Feed All";
-        public const string option7 = " 7) Speak All";
-        public const string option8 = " 8) Adopt (by Id)";
-        public const string option9 = " 9) Fly Birds";
-        public const string option10 = "10) Search/Filter";
-        public const string option11 = "11) Total Daily Costs";
-        public const string option12 = "12) Exit";
+        
+        public const string SelectOption = "Select an option: ";
+        public const string Goodbye = "Goodbye!";
+        public const string PressEnter = "Press ENTER to continue.";
+        public const string Invlaid = "Invalid option, try again!";
+
+
+        public const string Option1 = " 1) Add Dog";
+        public const string Option2 = " 2) Add Cat";
+        public const string Option3 = " 3) Add Bird";
+        public const string Option4 = " 4) Add Reptile";
+        public const string Option5 = " 5) List Animals";
+        public const string Option6 = " 6) Feed All";
+        public const string Option7 = " 7) Speak All";
+        public const string Option8 = " 8) Adopt (by Id)";
+        public const string Option9 = " 9) Fly Birds";
+        public const string Option10 = "10) Search/Filter";
+        public const string Option11 = "11) Total Daily Costs";
+        public const string Option12 = "12) Exit";
 
 
 
