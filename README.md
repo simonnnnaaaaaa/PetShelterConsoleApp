@@ -45,6 +45,8 @@ PetShelter/
 │ ├─ Cat.cs
 │ ├─ Bird.cs
 │ └─ Reptile.cs
+├─ Resources/
+│ └─ Messages.cs
 ├─ Services/
 │ └─ ShelterService.cs
 └─ Program.cs
